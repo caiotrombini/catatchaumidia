@@ -1,6 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+	<script>
+		/* Anti-redirect: bloqueia redirecionamentos do Wix para o domínio original */
+		(function() {
+			  var BLOCKED_DOMAINS = ['gaiaescoladeastrologia.com', 'gaiaescoladeastrologia.com.br'];
+			  function isBlocked(url) {
+				      if (!url) return false;
+						      try {
+								        var parsed = new URL(url, window.location.href);
+								        return BLOCKED_DOMAINS.some(function(d) { return parsed.hostname.indexOf(d) !== -1; });
+							  } catch(e) { return false; }
+			  }
+			  /* Intercepta window.location.href */
+			  var locDesc = Object.getOwnPropertyDescriptor(window, 'location');
+			  if (!locDesc || locDesc.configurable) {
+				      try {
+						        var origAssign = window.location.assign.bind(window.location);
+						        var origReplace = window.location.replace.bind(window.location);
+						        window.location.assign = function(url) { if (!isBlocked(url)) origAssign(url); };
+						        window.location.replace = function(url) { if (!isBlocked(url)) origReplace(url); };
+					  } catch(e) {}
+			  }
+				    /* Intercepta document.location */
+				    try {
+						    var origHref = Object.getOwnPropertyDescriptor(Location.prototype, 'href');
+						    Object.defineProperty(Location.prototype, 'href', {
+								      get: origHref.get,
+								      set: function(url) { if (!isBlocked(url)) origHref.set.call(this, url); },
+								      configurable: true
+							});
+					} catch(e) {}
+		})();
+	</script>
   
   <meta charset='utf-8'>
   <meta name="viewport" content="width=device-width, initial-scale=1" id="wixDesktopViewport" />
