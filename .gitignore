@@ -1,0 +1,21 @@
+# HTTrack cache and log files
+hts-cache/
+hts-log.txt
+download-httrack.log
+execucao-powershell.log
+cookies.txt
+_FALHAS.txt
+_RELATORIO_DOWNLOAD.txt
+backblue.gif
+fade.gif
+
+# Temporary agent files
+.gemini/
+.agents/
+.snapshots/
+task_plan.md
+findings.md
+progress.md
+task.md
+implementation_plan.md
+walkthrough.md

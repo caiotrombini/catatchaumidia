@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validação de Credencial - Gaia Escola de Astrologia</title>
+  
+  <!-- Fontes Premium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Ícones FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --color-bg-deep: #070A0F;
+      --color-card-dark: #0D1118;
+      --color-orange: #EE6806;
+      --color-blue: #0A70C3;
+      --color-green: #2ec4b6;
+      --color-red: #e71d36;
+      --color-text-white: #F5F7FA;
+      --color-text-muted: #8E9BAE;
+      --color-border-glass: rgba(255, 255, 255, 0.08);
+      --font-heading: 'Cinzel', Georgia, serif;
+      --font-body: 'Outfit', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg-deep);
+      color: var(--color-text-white);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* Background Estelar */
+    .starry-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 50% 50%, #0c0f16 0%, #05060a 100%);
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+      background-size: 350px 350px, 200px 200px;
+      background-position: 0 0, 40px 60px;
+      opacity: 0.2;
+    }
+
+    .validation-wrapper {
+      width: 100%;
+      max-width: 480px;
+      perspective: 1000px;
+    }
+
+    .validation-card {
+      background: rgba(13, 17, 24, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--color-border-glass);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      animation: zoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Logo */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .logo-sphere {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #56b1fc 0%, #0A70C3 50%, #032b50 100%);
+      box-shadow: 0 0 10px rgba(10, 112, 195, 0.6);
+    }
+
+    .logo-title {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Ícone de Resultado */
+    .result-icon-box {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+
+    .status-valid {
+      background: rgba(46, 196, 182, 0.15);
+      border: 2px solid var(--color-green);
+      color: var(--color-green);
+      box-shadow: 0 0 20px rgba(46, 196, 182, 0.3);
+    }
+
+    .status-invalid {
+      background: rgba(231, 29, 54, 0.15);
+      border: 2px solid var(--color-red);
+      color: var(--color-red);
+      box-shadow: 0 0 20px rgba(231, 29, 54, 0.3);
+    }
+
+    .pulse-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      z-index: -1;
+    }
+
+    .status-valid .pulse-ring {
+      border: 2px solid var(--color-green);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .status-text-valid {
+      color: var(--color-green);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 25px;
+    }
+
+    .status-text-invalid {
+      color: var(--color-red);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 25px;
+    }
+
+    /* Detalhes do Aluno */
+    .details-list {
+      background: rgba(8, 10, 15, 0.5);
+      border: 1px solid var(--color-border-glass);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      margin-bottom: 30px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .detail-value {
+      color: var(--color-text-white);
+      font-weight: 600;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--color-text-white);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="starry-bg">
+    <div class="stars"></div>
+  </div>
+
+  <div class="validation-wrapper">
+    <div class="validation-card">
+      <div class="logo-area">
+        <div class="logo-sphere"></div>
+        <span class="logo-title">Gaia</span>
+      </div>
+
+      <!-- ICONE DE STATUS -->
+      <div id="status-icon-container">
+        <!-- Injetado dinamicamente -->
+      </div>
+
+      <h2 id="status-title">Processando Validação...</h2>
+      <p id="status-subtitle">Aguarde enquanto verificamos a credencial estudantil.</p>
+
+      <!-- DETALHES DA CREDENCIAL -->
+      <div class="details-list hidden" id="student-details">
+        <div class="detail-row">
+          <span class="detail-label">Estudante</span>
+          <span class="detail-value" id="val-name">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Matrícula</span>
+          <span class="detail-value" id="val-reg">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Curso</span>
+          <span class="detail-value" id="val-course">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">CPF</span>
+          <span class="detail-value" id="val-cpf">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Status da Matrícula</span>
+          <span class="detail-value" id="val-status">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Validade</span>
+          <span class="detail-value" id="val-validity">-</span>
+        </div>
+      </div>
+
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-house"></i> Ir para o Site Principal
+      </a>
+    </div>
+  </div>
+
+  <!-- Banco de dados estático para validação client-side -->
+  <script src="portal/js/db.js"></script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const studentId = urlParams.get("id");
+
+      const statusIconContainer = document.getElementById("status-icon-container");
+      const statusTitle = document.getElementById("status-title");
+      const statusSubtitle = document.getElementById("status-subtitle");
+      const studentDetails = document.getElementById("student-details");
+
+      // Simular carregamento rápido para dar sensação de sistema dinâmico
+      setTimeout(() => {
+        const student = studentsDatabase[studentId];
+
+        if (student && student.status === "Ativo") {
+          // Credencial Ativa e Válida
+          statusIconContainer.innerHTML = `
+            <div class="result-icon-box status-valid">
+              <i class="fa-solid fa-check"></i>
+              <div class="pulse-ring"></div>
+            </div>
+          `;
+          statusTitle.textContent = "Credencial Confirmada";
+          statusSubtitle.className = "status-text-valid";
+          statusSubtitle.textContent = "ESTUDANTE REGULARMENTE MATRICULADO";
+
+          // Exibe e preenche os detalhes (com CPF mascarado para privacidade)
+          studentDetails.classList.remove("hidden");
+          document.getElementById("val-name").textContent = student.nome;
+          document.getElementById("val-reg").textContent = student.matricula;
+          document.getElementById("val-course").textContent = student.curso;
+          document.getElementById("val-status").textContent = student.status.toUpperCase();
+          document.getElementById("val-status").style.color = "var(--color-green)";
+          document.getElementById("val-validity").textContent = student.validity;
+          
+          // Mascara o CPF: ex: "397.337.018-39" -> "***.337.***-39"
+          const parts = student.cpf.split(".");
+          if (parts.length === 3) {
+            const lastPart = parts[2].split("-");
+            document.getElementById("val-cpf").textContent = `***.${parts[1]}.***-${lastPart[1]}`;
+          } else {
+            document.getElementById("val-cpf").textContent = student.cpf;
+          }
+        } else {
+          // Credencial Inválida ou Expirada
+          statusIconContainer.innerHTML = `
+            <div class="result-icon-box status-invalid">
+              <i class="fa-solid fa-xmark"></i>
+            </div>
+          `;
+          statusTitle.textContent = "Validação Falhou";
+          statusSubtitle.className = "status-text-invalid";
+          statusSubtitle.textContent = "CREDENCIAL INVÁLIDA OU EXPIRADA";
+          
+          studentDetails.classList.add("hidden");
+        }
+      }, 800);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal do Aluno - Gaia Escola de Astrologia</title>
+  
+  <!-- Fontes Premium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Ícones FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Estilos Globais e do Portal -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Background Estelar Interativo -->
+  <div class="starry-bg">
+    <div class="stars"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+  </div>
+
+  <!-- CONTAINER DE LOGIN -->
+  <div id="login-container" class="login-wrapper">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo-area">
+          <div class="logo-sphere"></div>
+          <span class="logo-title">Gaia</span>
+          <span class="logo-subtitle">escola de astrologia</span>
+        </div>
+        <h2>Portal do Aluno</h2>
+        <p>Insira suas credenciais cósmicas para acessar o portal acadêmico.</p>
+      </div>
+
+      <form id="login-form">
+        <div class="input-group">
+          <label for="username"><i class="fa-solid fa-user"></i> Usuário</label>
+          <input type="text" id="username" placeholder="Seu login (ex: caiotrombini)" required autocomplete="username">
+        </div>
+
+        <div class="input-group">
+          <label for="password"><i class="fa-solid fa-lock"></i> Senha</label>
+          <input type="password" id="password" placeholder="Sua senha" required autocomplete="current-password">
+        </div>
+
+        <div id="login-error" class="error-msg hidden">
+          <i class="fa-solid fa-triangle-exclamation"></i> Usuário ou senha incorretos.
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Acessar Portal</span>
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONTAINER DO DASHBOARD (OCULTO POR PADRÃO) -->
+  <div id="dashboard-container" class="dashboard-wrapper hidden">
+    
+    <!-- Sidebar de Navegação (Desktop) -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-area">
+          <div class="logo-sphere"></div>
+          <div class="logo-text-group">
+            <span class="logo-title">Gaia</span>
+            <span class="logo-subtitle">escola de astrologia</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar-container">
+          <img id="user-avatar" src="" alt="Avatar do Aluno">
+        </div>
+        <h3 id="user-display-name">Nome do Aluno</h3>
+        <p id="user-course-label">Astrologia – Ciência dos Astros</p>
+        <span class="sign-tag" id="user-sign-tag"><i class="fa-solid fa-compass"></i> Signo</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li><button class="nav-item active" data-tab="carteirinha"><i class="fa-solid fa-id-card"></i><span>Carteirinha Digital</span></button></li>
+          <li><button class="nav-item" data-tab="perfil"><i class="fa-solid fa-user-circle"></i><span>Dados Pessoais</span></button></li>
+          <li><button class="nav-item" data-tab="cursos"><i class="fa-solid fa-graduation-cap"></i><span>Cursos & Faltas</span></button></li>
+          <li><button class="nav-item" data-tab="boletim"><i class="fa-solid fa-chart-simple"></i><span>Boletim Completo</span></button></li>
+          <li><button class="nav-item" data-tab="historico"><i class="fa-solid fa-clock-rotate-left"></i><span>Histórico Escolar</span></button></li>
+          <li><button class="nav-item" data-tab="projetos"><i class="fa-solid fa-diagram-project"></i><span>Projetos</span></button></li>
+          <li><button class="nav-item" data-tab="tcc"><i class="fa-solid fa-book-open"></i><span>TCC</span></button></li>
+          <li><button class="nav-item" data-tab="certificados"><i class="fa-solid fa-award"></i><span>Certificados</span></button></li>
+          <li><button class="nav-item" data-tab="financeiro"><i class="fa-solid fa-wallet"></i><span>Financeiro</span></button></li>
+          <li><button class="nav-item" data-tab="biblioteca"><i class="fa-solid fa-book"></i><span>Biblioteca</span></button></li>
+          <li><button class="nav-item" data-tab="material"><i class="fa-solid fa-file-pdf"></i><span>Material Didático</span></button></li>
+          <li><button class="nav-item" data-tab="eventos"><i class="fa-solid fa-calendar-star"></i><span>Eventos</span></button></li>
+          <li><button class="nav-item" data-tab="declaracao"><i class="fa-solid fa-file-signature"></i><span>Declaração</span></button></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="btn-logout" class="btn-logout">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sair do Portal</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Cabeçalho Mobile -->
+    <header class="mobile-header">
+      <div class="logo-area">
+        <div class="logo-sphere"></div>
+        <span class="logo-title">Gaia</span>
+      </div>
+      <button id="mobile-menu-toggle" class="mobile-toggle-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </header>
+
+    <!-- Menu Flutuante Mobile -->
+    <div id="mobile-nav-menu" class="mobile-nav hidden">
+      <div class="mobile-profile">
+        <img id="user-avatar-mobile" src="" alt="Avatar">
+        <div class="mobile-profile-info">
+          <h4 id="user-display-name-mobile">Nome</h4>
+          <span class="sign-tag" id="user-sign-tag-mobile">Signo</span>
+        </div>
+      </div>
+      <ul>
+        <li><button class="mobile-nav-item active" data-tab="carteirinha"><i class="fa-solid fa-id-card"></i> Carteirinha</button></li>
+        <li><button class="mobile-nav-item" data-tab="perfil"><i class="fa-solid fa-user-circle"></i> Perfil</button></li>
+        <li><button class="mobile-nav-item" data-tab="cursos"><i class="fa-solid fa-graduation-cap"></i> Cursos</button></li>
+        <li><button class="mobile-nav-item" data-tab="boletim"><i class="fa-solid fa-chart-simple"></i> Boletim</button></li>
+        <li><button class="mobile-nav-item" data-tab="historico"><i class="fa-solid fa-clock-rotate-left"></i> Histórico</button></li>
+        <li><button class="mobile-nav-item" data-tab="projetos"><i class="fa-solid fa-diagram-project"></i> Projetos</button></li>
+        <li><button class="mobile-nav-item" data-tab="tcc"><i class="fa-solid fa-book-open"></i> TCC</button></li>
+        <li><button class="mobile-nav-item" data-tab="certificados"><i class="fa-solid fa-award"></i> Certificados</button></li>
+        <li><button class="mobile-nav-item" data-tab="financeiro"><i class="fa-solid fa-wallet"></i> Financeiro</button></li>
+        <li><button class="mobile-nav-item" data-tab="biblioteca"><i class="fa-solid fa-book"></i> Biblioteca</button></li>
+        <li><button class="mobile-nav-item" data-tab="material"><i class="fa-solid fa-file-pdf"></i> Material</button></li>
+        <li><button class="mobile-nav-item" data-tab="eventos"><i class="fa-solid fa-calendar-star"></i> Eventos</button></li>
+        <li><button class="mobile-nav-item" data-tab="declaracao"><i class="fa-solid fa-file-signature"></i> Declaração</button></li>
+        <li class="logout-li"><button id="btn-logout-mobile" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</button></li>
+      </ul>
+    </div>
+
+    <!-- Área Principal de Conteúdo -->
+    <main class="main-content">
+      
+      <!-- Seção Principal com Informações -->
+      <div class="content-header">
+        <div class="welcome-msg">
+          <h1>Olá, <span id="user-first-name">Aluno</span>! 🌌</h1>
+          <p>Seja bem-vindo de volta ao seu templo astrológico de estudos.</p>
+        </div>
+        <div class="academic-status">
+          <div class="status-item">
+            <span class="status-title">Matrícula</span>
+            <span class="status-value" id="academic-reg-number">GEA-0000-00</span>
+          </div>
+          <div class="status-item">
+            <span class="status-title">Semestre</span>
+            <span class="status-value" id="academic-semester">--</span>
+          </div>
+          <div class="status-item">
+            <span class="status-title">Status</span>
+            <span class="status-value status-active" id="academic-status-value">Ativo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTEÚDO DAS ABAS -->
+      <div class="tab-content-container">
+
+        <!-- ABA 1: CARTEIRINHA DIGITAL -->
+        <section id="tab-carteirinha" class="tab-pane active">
+          <div class="card-viewer-container">
+            <div class="viewer-header">
+              <h2>Carteirinha de Estudante Digital</h2>
+              <p>Carteira de identificação estudantil oficial homologada. Aponte a câmera para o QR Code para validar.</p>
+            </div>
+            <div class="card-image-wrapper">
+              <img id="student-card-img" src="" alt="Carteirinha Oficial de Estudante">
+            </div>
+            <div class="viewer-actions">
+              <button id="btn-print-card" class="btn-secondary"><i class="fa-solid fa-print"></i> Imprimir Carteirinha</button>
+              <button id="btn-download-card" class="btn-primary"><i class="fa-solid fa-download"></i> Baixar como Imagem</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 2: DADOS PESSOAIS -->
+        <section id="tab-perfil" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Dados Pessoais & Acadêmicos</h2>
+            <p>Informações cadastrais e resumo acadêmico do aluno.</p>
+          </div>
+          <div class="profile-details-grid" id="profile-details-grid">
+            <!-- Renderizado via JS -->
+          </div>
+        </section>
+
+        <!-- ABA 3: CURSOS E FALTAS -->
+        <section id="tab-cursos" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Módulos & Frequência Acadêmica</h2>
+            <p>Monitore suas faltas e o andamento geral das disciplinas ativas.</p>
+          </div>
+          <div class="courses-grid" id="courses-cards-container"></div>
+        </section>
+
+        <!-- ABA 4: BOLETIM COMPLETO -->
+        <section id="tab-boletim" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Boletim de Aproveitamento Escolar</h2>
+            <p>Registro histórico oficial de notas, frequência e status de aprovação de cada disciplina.</p>
+          </div>
+          <div class="table-card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Disciplina</th>
+                    <th>Semestre</th>
+                    <th>C.H.</th>
+                    <th>Créd.</th>
+                    <th>P1</th>
+                    <th>P2</th>
+                    <th>Trab.</th>
+                    <th>Média</th>
+                    <th>Freq.</th>
+                    <th>Faltas</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="boletim-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 5: HISTÓRICO ESCOLAR -->
+        <section id="tab-historico" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Histórico Escolar Consolidado</h2>
+            <p>Visão geral semestral do desempenho acadêmico e progresso no curso.</p>
+          </div>
+          <div class="stats-cards" id="stats-cards-container"></div>
+          <div class="table-card" style="margin-top: 25px;">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Semestre</th>
+                    <th>Disciplinas</th>
+                    <th>Créditos</th>
+                    <th>Média</th>
+                    <th>Situação</th>
+                  </tr>
+                </thead>
+                <tbody id="historico-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Barra de Progresso do Curso -->
+          <div class="progress-section" id="progress-section"></div>
+        </section>
+
+        <!-- ABA 6: PROJETOS -->
+        <section id="tab-projetos" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Projetos Acadêmicos</h2>
+            <p>Pesquisas, seminários e projetos integradores desenvolvidos ao longo do curso.</p>
+          </div>
+          <div class="projects-grid" id="projects-container"></div>
+        </section>
+
+        <!-- ABA 7: TCC -->
+        <section id="tab-tcc" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Trabalho de Conclusão de Curso</h2>
+            <p>Acompanhe o progresso, capítulos e status do seu TCC.</p>
+          </div>
+          <div id="tcc-container"></div>
+        </section>
+
+        <!-- ABA 8: CERTIFICADOS -->
+        <section id="tab-certificados" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Certificados & Atividades Complementares</h2>
+            <p>Workshops, seminários, minicursos e palestras com certificação registrada.</p>
+          </div>
+          <div class="table-card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Atividade</th>
+                    <th>Carga Horária</th>
+                    <th>Data</th>
+                    <th>Emissor</th>
+                  </tr>
+                </thead>
+                <tbody id="certificados-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="cert-total" id="cert-total-hours"></div>
+        </section>
+
+        <!-- ABA 9: FINANCEIRO -->
+        <section id="tab-financeiro" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Extrato Financeiro</h2>
+            <p>Histórico completo de mensalidades, pagamentos e pendências financeiras.</p>
+          </div>
+          <div class="finance-summary" id="finance-summary"></div>
+          <div class="table-card" style="margin-top: 25px;">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Referência</th>
+                    <th>Valor</th>
+                    <th>Vencimento</th>
+                    <th>Pagamento</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="financeiro-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 10: BIBLIOTECA (EDITÁVEL) -->
+        <section id="tab-biblioteca" class="tab-pane">
+          <div class="tab-pane-header" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">
+            <div>
+              <h2>Biblioteca & Empréstimos</h2>
+              <p>Controle de empréstimos de livros e materiais didáticos do acervo escolar.</p>
+            </div>
+            <button id="btn-add-book" class="btn-primary" style="margin-top:5px"><i class="fa-solid fa-plus"></i> Novo Empréstimo</button>
+          </div>
+          <!-- Modal de Adição -->
+          <div id="book-modal" class="modal-overlay hidden">
+            <div class="modal-card">
+              <h3 id="book-modal-title">Adicionar Empréstimo</h3>
+              <div class="modal-field"><label>Título do Livro</label><input type="text" id="book-title" placeholder="Ex: Tetrabiblos"></div>
+              <div class="modal-field"><label>Autor</label><input type="text" id="book-author" placeholder="Ex: Cláudio Ptolomeu"></div>
+              <div class="modal-field"><label>Data de Empréstimo</label><input type="text" id="book-borrow" placeholder="DD/MM/AAAA"></div>
+              <div class="modal-field"><label>Data de Devolução</label><input type="text" id="book-return" placeholder="DD/MM/AAAA"></div>
+              <div class="modal-field"><label>Status</label><select id="book-status"><option value="Em posse">Em posse</option><option value="Devolvido">Devolvido</option></select></div>
+              <div class="modal-actions">
+                <button id="btn-cancel-book" class="btn-secondary">Cancelar</button>
+                <button id="btn-save-book" class="btn-primary">Salvar</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Empréstimo</th>
+                    <th>Devolução</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="biblioteca-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 10.5: MATERIAL DIDÁTICO (PDFs) -->
+        <section id="tab-material" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Material Didático</h2>
+            <p>Apostilas, módulos e documentos acadêmicos em PDF para download. Acervo exclusivo da Gaia Escola de Astrologia.</p>
+          </div>
+          <div class="material-grid" id="material-grid"></div>
+        </section>
+
+        <!-- ABA 11: EVENTOS -->
+        <section id="tab-eventos" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Eventos & Atividades Extracurriculares</h2>
+            <p>Congressos, simpósios, workshops e atividades práticas com participação registrada.</p>
+          </div>
+          <div class="events-grid" id="events-container"></div>
+        </section>
+
+        <!-- ABA 12: DECLARAÇÃO DE MATRÍCULA -->
+        <section id="tab-declaracao" class="tab-pane">
+          <div class="tab-pane-header">
+            <h2>Declaração de Matrícula Digital</h2>
+            <p>Gere e imprima sua declaração estudantil oficial com assinatura digital certificada pela escola.</p>
+          </div>
+
+          <div class="declaration-preview-wrapper">
+            <div class="declaration-actions">
+              <button id="btn-print-declaration" class="btn-primary">
+                <i class="fa-solid fa-print"></i> Imprimir Declaração Oficial
+              </button>
+            </div>
+
+            <div class="declaration-page" id="declaration-sheet">
+              <div class="declaration-header">
+                <div class="school-logo">
+                  <div class="logo-sphere black-sphere"></div>
+                  <div class="logo-text">
+                    <span class="school-title">Gaia</span>
+                    <span class="school-subtitle">escola de astrologia</span>
+                  </div>
+                </div>
+                <div class="school-info">
+                  <p>Gaia Escola de Astrologia Ltda.</p>
+                  <p>CNPJ: 12.345.678/0001-90</p>
+                  <p>www.gaiaescoladeastrologia.com</p>
+                </div>
+              </div>
+
+              <div class="declaration-body">
+                <h1 class="dec-title">DECLARAÇÃO DE MATRÍCULA</h1>
+                
+                <p class="dec-text" id="declaration-text-content">
+                  [Texto dinâmico da declaração]
+                </p>
+
+                <p class="dec-text" id="declaration-text-2">
+                  [Texto dinâmico complementar]
+                </p>
+
+                <p class="dec-date" id="declaration-current-date">
+                  São Paulo, 30 de Junho de 2026.
+                </p>
+              </div>
+
+              <div class="declaration-footer">
+                <div class="signature-area">
+                  <div class="handwritten-signature">Robson Papaleo</div>
+                  <div class="signature-line"></div>
+                  <p class="signee-name">Robson Papaleo</p>
+                  <p class="signee-role">Diretor Acadêmico</p>
+                  <p class="signee-school">Gaia Escola de Astrologia</p>
+                </div>
+
+                <div class="verification-hash-box">
+                  <p class="hash-title">Código de Autenticidade Digital</p>
+                  <p class="hash-value" id="declaration-hash">HASH-VERIFICATION-123456</p>
+                  <p class="hash-subtitle">Valide a autenticidade deste documento no portal informando o código acima.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Bibliotecas externas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- Lógica da Aplicação -->
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
