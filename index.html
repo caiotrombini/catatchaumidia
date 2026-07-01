@@ -3,6 +3,10 @@
 <head>
 	<script>
 		/* Anti-redirect: bloqueia redirecionamentos do Wix para o domínio original */
+		  /* Força redirect de / para /index.html para que o Wix funcione no GitHub Pages */
+		  if (window.location.pathname.endsWith('/') && !window.location.search.includes('direct')) {
+			      window.location.replace(window.location.pathname + 'index.html?direct=1');
+		  }
 		(function() {
 			  var BLOCKED_DOMAINS = ['gaiaescoladeastrologia.com', 'gaiaescoladeastrologia.com.br'];
 			  function isBlocked(url) {
